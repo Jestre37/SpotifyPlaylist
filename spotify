@@ -1,0 +1,99 @@
+package com.mycompany.spotifyplaylist;     
+
+import java.util.*;      
+
+
+public class SpotifyPlaylist {           
+
+
+    public static void main(String[] args) {      
+        ArrayList<String> playlist = new ArrayList<>();      
+        Stack<ArrayList<String>> undo = new Stack<>();      
+        Stack<ArrayList<String>> redo = new Stack<>();      
+        Scanner scan = new Scanner(System.in);      
+
+
+        while (true) {      
+
+
+            System.out.println("\n1 Add");       
+            System.out.println("2 Remove");       
+            System.out.println("3 Undo");       
+            System.out.println("4 Redo");       
+            System.out.println("5 View");       
+            System.out.println("6 Exit");       
+            System.out.print("Choice: ");      
+
+
+            int choice = scan.nextInt();      
+            scan.nextLine();      
+
+
+
+            if (choice == 1) {      
+                System.out.print("Song?: ");       
+                String song = scan.nextLine();       
+                undo.push(new ArrayList<>(playlist));       
+                redo.clear();       
+                playlist.add(song);       
+                System.out.println(song + " added");      
+
+
+            } else if (choice == 2) {      
+                if (!playlist.isEmpty()) {       
+                    undo.push(new ArrayList<>(playlist));       
+                    redo.clear();       
+                    String song = playlist.remove(playlist.size()-1);       
+                    System.out.println(song + " removed");       
+                } else {       
+                    System.out.println("Empty!");       
+                }      
+
+
+            } else if (choice == 3) {      
+                if (!undo.isEmpty()) {       
+                    redo.push(new ArrayList<>(playlist));       
+                    playlist = undo.pop();       
+                    System.out.println("Undo!");       
+                } else {       
+                    System.out.println("Nothing!");       
+                }      
+
+
+            } else if (choice == 4) {      
+                if (!redo.isEmpty()) {       
+                    undo.push(new ArrayList<>(playlist));       
+                    playlist = redo.pop();       
+                    System.out.println("Redo!");       
+                } else {       
+                    System.out.println("Nothing!");       
+                }      
+
+
+            } else if (choice == 5) {      
+                if (playlist.isEmpty()) {       
+                    System.out.println("Empty!");       
+                } else {       
+                    for (int i=0;i<playlist.size();i++)       
+                        System.out.println((i+1)+". "+playlist.get(i));       
+                }      
+
+
+            } else if (choice == 6) {      
+                     
+                      
+                break;      
+
+
+            } else {      
+                System.out.println("Invalid");       
+            }      
+
+
+        }      
+
+
+    }      
+
+
+}  
